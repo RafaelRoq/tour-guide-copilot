@@ -1,0 +1,16 @@
+[project]
+name = "tour-guide-copilot"
+version = "0.2.0"
+description = "AI-powered tool that structures a tour guide's knowledge into itineraries and post-tour plans."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "jinja2>=3.1.0",
+    "pypdf>=4.0.0",
+]
+
+[project.scripts]
+copilot = "copilot.cli:main"
