@@ -1,0 +1,181 @@
+{
+  "guide": {
+    "name": "Manolo",
+    "city": "Madrid",
+    "language": "en",
+    "tagline": "12 years walking these streets so you don't have to trust Google."
+  },
+  "itinerary": {
+    "title": "Manolo's Madrid — Free Walking Tour",
+    "tagline": "12 years walking these streets so you don't have to trust Google.",
+    "duration_minutes": 120,
+    "stops": [
+      {
+        "order": 1,
+        "name": "Plaza Mayor",
+        "description": "This is where it all begins. Most people just take a selfie and leave, but look up — the frescoes on the Casa de la Panadería are stunning and almost nobody notices them. This square has seen bullfights, executions, markets, and football.",
+        "tip": "Best photos from the southwest corner in the morning light.",
+        "coordinates": {
+          "lat": 40.4154,
+          "lng": -3.7074
+        }
+      },
+      {
+        "order": 2,
+        "name": "Mercado de San Miguel",
+        "description": "A beautiful iron-and-glass market from 1916. It's become very touristy and overpriced, but the building itself is worth seeing. If you want to try something, the vermouth on tap is decent and reasonably priced.",
+        "tip": "Avoid the seafood stalls — tourist markup is brutal.",
+        "coordinates": {
+          "lat": 40.4153,
+          "lng": -3.7085
+        }
+      },
+      {
+        "order": 3,
+        "name": "Calle Mayor and the assassination attempt",
+        "description": "We stop where someone tried to assassinate King Alfonso XIII on his wedding day in 1906. A bomb was thrown from a balcony hidden in a bouquet of flowers. The king survived. The story is incredible and almost nobody knows about it.",
+        "tip": "Look for the small plaque on the wall.",
+        "coordinates": null
+      },
+      {
+        "order": 4,
+        "name": "Plaza de la Villa",
+        "description": "One of the oldest squares in Madrid. Three buildings from three different centuries, all in one tiny square. It's always empty because tourists don't know about it.",
+        "tip": "Perfect for photos without crowds.",
+        "coordinates": {
+          "lat": 40.4155,
+          "lng": -3.7094
+        }
+      },
+      {
+        "order": 5,
+        "name": "Royal Palace",
+        "description": "We don't go inside, but the exterior and the Sabatini Gardens are free. The gardens at sunset are one of the best-kept secrets in Madrid — golden light, almost no people, incredible views.",
+        "tip": "If you only do one thing after my tour, go to the Sabatini Gardens at sunset.",
+        "coordinates": {
+          "lat": 40.4179,
+          "lng": -3.7143
+        }
+      },
+      {
+        "order": 6,
+        "name": "Opera and Sol",
+        "description": "We end near Puerta del Sol. Kilometer zero of Spain — every road in the country is measured from this point. It's always chaotic and crowded, but it's important to see it once.",
+        "tip": null,
+        "coordinates": {
+          "lat": 40.4169,
+          "lng": -3.7036
+        }
+      }
+    ]
+  },
+  "plans": [
+    {
+      "situation": "Where do I eat after the tour?",
+      "slug": "eat-after-tour",
+      "recommendations": [
+        {
+          "name": "The small taberna on Calle de la Cruz",
+          "description": "This is the spot for the best patatas bravas in the center, no contest. It's a standing-room place, no frills, packed with locals at lunch.",
+          "what_to_order": "Patatas bravas and ensaladilla rusa",
+          "what_to_avoid": null,
+          "price_range": "€",
+          "vibe": "Standing-room, local, bustling",
+          "coordinates": null
+        },
+        {
+          "name": "The family-run spot near Plaza Mayor",
+          "description": "Order the arroz a banda, NOT the paella. The arroz is what locals eat and it's half the price. Wine by the glass is a steal at €2.50.",
+          "what_to_order": "Arroz a banda",
+          "what_to_avoid": "Paella",
+          "price_range": "€€",
+          "vibe": "Sit-down, family-run, authentic",
+          "coordinates": null
+        }
+      ]
+    },
+    {
+      "situation": "A good bar tonight?",
+      "slug": "bar-tonight",
+      "recommendations": [
+        {
+          "name": "The sherry bar with sawdust on the floor",
+          "description": "It's like stepping into 1920s Madrid. Sherry wine served from old barrels, no music, no photos allowed. Cash only, no exceptions.",
+          "what_to_order": "Sherry wine",
+          "what_to_avoid": null,
+          "price_range": "€",
+          "vibe": "Old-school, atmospheric, cash only",
+          "coordinates": null
+        }
+      ]
+    },
+    {
+      "situation": "Where should I have breakfast tomorrow?",
+      "slug": "breakfast-tomorrow",
+      "recommendations": [
+        {
+          "name": "A local café",
+          "description": "Order a tostada con tomate y aceite for the real Madrid breakfast experience. Add a café con leche and avoid the Starbucks.",
+          "what_to_order": "Tostada con tomate y aceite, café con leche",
+          "what_to_avoid": "Starbucks",
+          "price_range": "€",
+          "vibe": "Local, simple, authentic",
+          "coordinates": null
+        }
+      ]
+    },
+    {
+      "situation": "What do I do with 2 free hours?",
+      "slug": "2-free-hours",
+      "recommendations": [
+        {
+          "name": "Retiro Park and the Crystal Palace",
+          "description": "The Crystal Palace usually has a free art exhibition. The rose garden in the south part of the park is beautiful and always empty.",
+          "what_to_order": null,
+          "what_to_avoid": "Rowboats on weekends",
+          "price_range": "Free",
+          "vibe": "Relaxing, scenic, cultural",
+          "coordinates": null
+        }
+      ]
+    },
+    {
+      "situation": "What if it rains?",
+      "slug": "rainy-day",
+      "recommendations": [
+        {
+          "name": "Reina Sofía museum",
+          "description": "Home to Picasso's Guernica, this museum is worth the visit for that painting alone. Free on Saturday afternoons and all day Sunday.",
+          "what_to_order": null,
+          "what_to_avoid": null,
+          "price_range": "Free",
+          "vibe": "Cultural, historic, educational",
+          "coordinates": null
+        },
+        {
+          "name": "Thyssen museum",
+          "description": "Smaller and less crowded than others, this museum offers a fantastic collection from medieval to pop art.",
+          "what_to_order": null,
+          "what_to_avoid": null,
+          "price_range": "€€",
+          "vibe": "Artistic, diverse, intimate",
+          "coordinates": null
+        }
+      ]
+    },
+    {
+      "situation": "Where do locals actually shop?",
+      "slug": "local-shopping",
+      "recommendations": []
+    }
+  ],
+  "warnings": [
+    "Avoid any restaurant with photos on the door or a person outside trying to get you in.",
+    "Pickpockets work the metro and Sol area. Front pockets, zip your bags, usual precautions."
+  ],
+  "metadata": {
+    "generated_at": "2026-02-27T12:59:35.945096+00:00",
+    "generator_version": "0.1.0",
+    "model": "gpt-4o"
+  }
+}

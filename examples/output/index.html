@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manolo&#39;s Madrid — Free Walking Tour</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+            color: #1a1a1a;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 16px;
+            background: #fafafa;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header / Guide profile */
+        .header { text-align: center; padding: 20px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; }
+        .header h1 { font-size: 1.5rem; }
+        .guide-meta { color: #888; font-size: 0.8rem; margin-top: 4px; }
+        .tagline { color: #666; font-style: italic; margin-top: 6px; font-size: 0.9rem; }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px; }
+        .tab {
+            flex: 1; text-align: center; padding: 10px; cursor: pointer;
+            font-weight: 600; color: #888; border-bottom: 2px solid transparent;
+            margin-bottom: -2px; transition: color 0.2s, border-color 0.2s;
+            user-select: none;
+        }
+        .tab.active { color: #1a1a1a; border-bottom-color: #1a1a1a; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Itinerary */
+        .section-title { font-size: 1.1rem; color: #333; margin-bottom: 16px; }
+        .stop { display: flex; gap: 12px; margin-bottom: 16px; }
+        .stop-number {
+            width: 28px; height: 28px; background: #1a1a1a; color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 600; flex-shrink: 0; margin-top: 2px;
+        }
+        .stop-content h3 { font-size: 1rem; }
+        .stop-content p { color: #444; font-size: 0.9rem; line-height: 1.5; margin-top: 4px; }
+        .tip { color: #666; font-size: 0.85rem; font-style: italic; margin-top: 6px; }
+
+        /* Plans — accordion */
+        .plan { margin-bottom: 8px; background: white; border-radius: 8px; overflow: hidden; }
+        .plan-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; cursor: pointer; user-select: none;
+        }
+        .plan-header h3 { font-size: 1rem; margin: 0; }
+        .plan-arrow {
+            font-size: 0.8rem; color: #888; transition: transform 0.2s;
+        }
+        .plan.open .plan-arrow { transform: rotate(90deg); }
+        .plan-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+        }
+        .plan.open .plan-body { max-height: 800px; }
+        .plan-body-inner { padding: 0 12px 12px; }
+        .recommendation { margin: 8px 0; padding-top: 8px; border-top: 1px solid #f0f0f0; }
+        .recommendation:first-child { border-top: none; padding-top: 0; }
+        .recommendation h4 { font-size: 0.95rem; margin-bottom: 4px; }
+        .rec-description { font-size: 0.9rem; color: #333; line-height: 1.5; margin-bottom: 6px; font-style: italic; }
+        .recommendation p { font-size: 0.9rem; color: #444; line-height: 1.5; }
+        .empty { color: #999; font-style: italic; font-size: 0.9rem; }
+
+        /* Warnings */
+        .warnings { margin-top: 12px; padding: 12px; background: #fff8e1; border-radius: 8px; }
+        .warnings h3 { font-size: 1rem; margin-bottom: 8px; }
+        .warnings ul { padding-left: 20px; }
+        .warnings li { font-size: 0.9rem; color: #555; margin-bottom: 6px; line-height: 1.4; }
+
+        /* Thank button */
+        .thank-container { text-align: center; margin: 28px 0 8px; }
+        .thank-btn {
+            display: inline-block; padding: 12px 28px;
+            background: #1a1a1a; color: white; border: none; border-radius: 24px;
+            font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; transition: background 0.2s;
+        }
+        .thank-btn:hover { background: #333; }
+        .thank-note {
+            font-size: 0.75rem; color: #999; margin-top: 6px;
+        }
+
+        /* Footer */
+        .footer { text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e0e0e0;
+                  font-size: 0.8rem; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Manolo · Madrid</h1>
+        
+        <p class="guide-meta">12 years as a guide</p>
+        
+        
+        <p class="tagline">12 years walking these streets so you don&#39;t have to trust Google.</p>
+        
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('itinerary')">Your tour</div>
+        <div class="tab" onclick="switchTab('plans')">Manolo's plans</div>
+    </div>
+
+    <div id="itinerary" class="tab-content active">
+        <h2 class="section-title">Manolo&#39;s Madrid — Free Walking Tour
+             · 120 min
+        </h2>
+
+        
+        <div class="stop">
+            <div class="stop-number">1</div>
+            <div class="stop-content">
+                <h3>Plaza Mayor</h3>
+                <p>This is where it all begins. Most people just take a selfie and leave, but look up — the frescoes on the Casa de la Panadería are stunning and almost nobody notices them. This square has seen bullfights, executions, markets, and football.</p>
+                
+                <p class="tip">💡 Best photos from the southwest corner in the morning light.</p>
+                
+            </div>
+        </div>
+        
+        <div class="stop">
+            <div class="stop-number">2</div>
+            <div class="stop-content">
+                <h3>Mercado de San Miguel</h3>
+                <p>A beautiful iron-and-glass market from 1916. It&#39;s become very touristy and overpriced, but the building itself is worth seeing. The vermouth on tap is decent and reasonably priced.</p>
+                
+                <p class="tip">💡 Avoid the seafood stalls — tourist markup is brutal.</p>
+                
+            </div>
+        </div>
+        
+        <div class="stop">
+            <div class="stop-number">3</div>
+            <div class="stop-content">
+                <h3>Calle Mayor and the assassination attempt</h3>
+                <p>We stop where someone tried to assassinate King Alfonso XIII on his wedding day in 1906. A bomb was thrown from a balcony hidden in a bouquet of flowers. The king survived.</p>
+                
+                <p class="tip">💡 Look for the small plaque on the wall.</p>
+                
+            </div>
+        </div>
+        
+        <div class="stop">
+            <div class="stop-number">4</div>
+            <div class="stop-content">
+                <h3>Plaza de la Villa</h3>
+                <p>One of the oldest squares in Madrid. Three buildings from three different centuries, all in one tiny square. It&#39;s always empty because tourists don&#39;t know about it.</p>
+                
+                <p class="tip">💡 Perfect for photos without crowds.</p>
+                
+            </div>
+        </div>
+        
+        <div class="stop">
+            <div class="stop-number">5</div>
+            <div class="stop-content">
+                <h3>Royal Palace</h3>
+                <p>The exterior and the Sabatini Gardens are free. The gardens at sunset are one of the best-kept secrets in Madrid — golden light, almost no people, incredible views.</p>
+                
+                <p class="tip">💡 If you only do one thing after my tour, go to the Sabatini Gardens at sunset.</p>
+                
+            </div>
+        </div>
+        
+        <div class="stop">
+            <div class="stop-number">6</div>
+            <div class="stop-content">
+                <h3>Opera and Sol</h3>
+                <p>We end near Puerta del Sol. Kilometer zero of Spain — every road in the country is measured from this point. It&#39;s always chaotic and crowded, but it&#39;s important to see it once.</p>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="plans" class="tab-content">
+        <h2 class="section-title">What do you need?</h2>
+
+        
+        <div class="plan" id="eat-after-tour">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>Where do I eat after the tour?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>The small taberna on Calle de la Cruz</h4>
+                        
+                        <p class="rec-description">A standing-room place packed with locals at lunch. Best patatas bravas in the center, no contest.</p>
+                        
+                        <p>
+                            <strong>Order:</strong> Patatas bravas and ensaladilla rusa<br>
+                            
+                            <strong>Vibe:</strong> Standing-room, no frills, local crowd<br>
+                            <strong>Price:</strong> €
+                        </p>
+                    </div>
+                    
+                    <div class="recommendation">
+                        <h4>The family-run spot near Plaza Mayor</h4>
+                        
+                        <p class="rec-description">Order the arroz a banda, NOT the paella. It&#39;s what locals eat and it&#39;s half the price.</p>
+                        
+                        <p>
+                            <strong>Order:</strong> Arroz a banda and wine by the glass<br>
+                            <strong>Avoid:</strong> Paella<br>
+                            <strong>Vibe:</strong> Sit-down, family-run<br>
+                            <strong>Price:</strong> €€
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="bar-tonight">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>A good bar tonight?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>The sherry bar with sawdust on the floor</h4>
+                        
+                        <p class="rec-description">Like stepping into 1920s Madrid. Sherry served from old barrels, no music, no photos allowed.</p>
+                        
+                        <p>
+                            <strong>Order:</strong> Sherry wine<br>
+                            
+                            <strong>Vibe:</strong> Old-school, atmospheric, cash only<br>
+                            <strong>Price:</strong> €
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="breakfast-tomorrow">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>Where should I have breakfast tomorrow?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>A local café</h4>
+                        
+                        <p class="rec-description">Order a tostada con tomate y aceite — the real Madrid breakfast. Add a café con leche.</p>
+                        
+                        <p>
+                            <strong>Order:</strong> Tostada con tomate y aceite and café con leche<br>
+                            <strong>Avoid:</strong> Starbucks<br>
+                            <strong>Vibe:</strong> Local, authentic<br>
+                            <strong>Price:</strong> €
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="2-free-hours">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>What do I do with 2 free hours?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>Retiro Park</h4>
+                        
+                        <p class="rec-description">The Crystal Palace inside the park is free and usually has an art exhibition. The rose garden is beautiful and always empty.</p>
+                        
+                        <p>
+                            
+                            <strong>Avoid:</strong> Rowboats on weekends<br>
+                            <strong>Vibe:</strong> Relaxing, scenic<br>
+                            <strong>Price:</strong> Free
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="half-day">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>What do I do with half a day?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>Malasaña neighborhood</h4>
+                        
+                        <p class="rec-description">The hipster neighborhood with great street art, independent shops, and vintage clothing. Have lunch at any place full of locals.</p>
+                        
+                        <p>
+                            
+                            
+                            <strong>Vibe:</strong> Trendy, artistic<br>
+                            
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="rainy-day">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>What if it rains?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    
+                    <div class="recommendation">
+                        <h4>Reina Sofía museum</h4>
+                        
+                        <p class="rec-description">Home to Picasso&#39;s Guernica. The museum is free on Saturday afternoons and all day Sunday.</p>
+                        
+                        <p>
+                            
+                            
+                            <strong>Vibe:</strong> Cultural, educational<br>
+                            <strong>Price:</strong> Free
+                        </p>
+                    </div>
+                    
+                    <div class="recommendation">
+                        <h4>Thyssen museum</h4>
+                        
+                        <p class="rec-description">Smaller, less crowded, fantastic collection from medieval to pop art.</p>
+                        
+                        <p>
+                            
+                            
+                            <strong>Vibe:</strong> Cultural, diverse<br>
+                            
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="plan" id="local-shopping">
+            <div class="plan-header" onclick="togglePlan(this)">
+                <h3>Where do locals actually shop?</h3>
+                <span class="plan-arrow">▶</span>
+            </div>
+            <div class="plan-body">
+                <div class="plan-body-inner">
+                
+                    <p class="empty">No recommendation available yet.</p>
+                
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <div class="warnings">
+            <h3>⚠️ Good to know</h3>
+            <ul>
+                
+                <li>Avoid any restaurant with photos on the door or a person outside trying to get you in.</li>
+                
+                <li>Metro closes at 1:30 AM. Night buses (búhos) run from Cibeles every 20 minutes after that.</li>
+                
+                <li>Tipping: not expected in bars/cafés. In restaurants, round up or leave €1-2 if service was good. Don&#39;t tip 20%.</li>
+                
+                <li>Shops close between 2-5 PM. Plan around siesta.</li>
+                
+                <li>Tap water is perfectly safe. Ask for &#39;agua del grifo&#39; — it&#39;s free and waiters legally must serve it.</li>
+                
+                <li>Pickpockets work the metro and Sol area. Front pockets, zip your bags, usual precautions.</li>
+                
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="thank-container">
+        
+        <span class="thank-btn" style="opacity: 0.5; cursor: default;">
+            ❤️ Thank Manolo
+        </span>
+        
+        <p class="thank-note">If Manolo's tips helped you, let them know.</p>
+    </div>
+
+    <div class="footer">
+        Powered by Tour Guide Copilot · Manolo's knowledge, structured by AI
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            document.querySelector('[onclick*="' + tab + '"]').classList.add('active');
+        }
+
+        function togglePlan(header) {
+            header.parentElement.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
