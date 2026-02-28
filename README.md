@@ -125,7 +125,7 @@ The AI doesn't invent. It structures. This is enforced at two levels:
 ## Quickstart
 
 ```bash
-git clone https://github.com/[user]/tour-guide-copilot.git
+git clone https://github.com/RafaelRoq/tour-guide-copilot.git
 cd tour-guide-copilot
 cp .env.example .env
 # Add your OPENAI_API_KEY to .env
