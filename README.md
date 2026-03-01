@@ -64,7 +64,9 @@ components:
 3. **A thank-you link** — a simple, non-intrusive way for the tourist to
    recognize the guide after the plans have been useful. The guide
    configures their own link (PayPal, Bizum, or any URL); the project
-   just displays it.
+   just displays it. In this version the button is an external link — no
+   payment processing happens inside the tool. A native tip or review
+   mechanism is the natural next step for this feature.
 
 The output is a static, mobile-first webpage that the guide shares via
 QR code or link. No app, no login, no backend.
@@ -496,15 +498,24 @@ Set `OPENAI_MODEL` in `.env` to any model that supports
 
 Directions being considered for future versions — contributions welcome:
 
-- **Conversational onboarding**: instead of writing a document, the guide
-  answers questions in a chat interface. The AI conducts the interview and
-  produces the same structured output the pipeline already knows how to
-  render. This lowers the barrier for guides who know their city but don't
-  write — which is most of them.
-- **Async tours**: the guide's captured knowledge powers a self-guided
-  tour experience — tourists follow the itinerary and query the guide's AI
-  without the guide being present. Requires RAG over the guide's corpus and
-  builds directly on the knowledge base created during onboarding.
+- **Voice onboarding**: guides already explain their tours out loud — that's
+  their natural format. A voice-first interface (speech-to-text → existing
+  pipeline) would let a guide record themselves talking about their tour and
+  produce the same output without writing a single word. The pipeline doesn't
+  change; only the input format does.
+- **Conversational onboarding**: an alternative to voice — the guide answers
+  structured questions in a chat interface. The AI conducts the interview and
+  produces the same structured output the pipeline already knows how to render.
+  Useful for guides who prefer to respond to prompts rather than speak freely.
+- **Managed hosting + QR code**: currently the pipeline outputs a local HTML
+  file that the guide must host somewhere. The missing step is publishing the
+  page automatically to a public URL and handing the guide a ready-to-print QR
+  code — the piece that closes the loop between generation and the tourist
+  scanning it during the tour.
+- **Async tours**: the guide's captured knowledge powers a self-guided tour
+  experience — tourists follow the itinerary and query the guide's AI without
+  the guide being present. Requires RAG over the guide's corpus and builds
+  directly on the knowledge base created during onboarding.
 - **UI string translations**: the HTML template has hardcoded English labels
   ("Your tour", "What do you need?"). Making these translatable would make
   the tourist-facing page fully multilingual end to end.
