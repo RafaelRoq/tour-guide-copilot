@@ -134,23 +134,28 @@ schema validation. Two layers reduce the risk:
 git clone https://github.com/RafaelRoq/tour-guide-copilot.git
 cd tour-guide-copilot
 cp .env.example .env
-# Add your OPENAI_API_KEY to .env
+# Add your OPENAI_API_KEY to .env (or configure Ollama — see Configuration below)
 pip install -r requirements.txt
-python -m copilot generate --input examples/input/madrid_manolo.md
+./run.sh examples/input/madrid_manolo.md
 ```
 
+`run.sh` checks that `.env` exists and dependencies are installed before
+running. If anything is missing it prints a clear message explaining what
+to do next.
+
 Output goes to `./output/` by default. You'll find `index.html` there —
-open it in any browser. To generate all formats at once:
+open it in any browser. You can pass any CLI option after the input file:
 
 ```bash
-python -m copilot generate --input examples/input/madrid_manolo.md --format all
+./run.sh examples/input/madrid_manolo.md --format all
 # Creates: output/index.html, output/guide.json, output/guide.md
 ```
 
-To generate and open in the browser automatically:
+**Alternative (works on Windows without Git Bash):**
 
 ```bash
-python -m copilot preview --input examples/input/madrid_manolo.md
+python -m copilot generate --input examples/input/madrid_manolo.md
+python -m copilot preview --input examples/input/madrid_manolo.md  # opens in browser
 ```
 
 ### Configuration
@@ -333,6 +338,7 @@ tour-guide-copilot/
 │   ├── ARCHITECTURE.md        #   Technical decisions and data flow
 │   └── PROMPTS.md             #   Detailed prompt documentation
 │
+├── run.sh                     # Run the pipeline with prerequisite checks
 ├── .env.example               # Configuration template
 ├── requirements.txt           # Python dependencies
 ├── LICENSE                    # MIT (code)
