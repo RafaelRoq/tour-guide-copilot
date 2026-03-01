@@ -244,7 +244,7 @@ def _render_html_minimal(data: dict) -> str:
 
     tip_url = guide.get("tip_url", "")
     if tip_url:
-        thank_btn = f'<a class="thank-btn" href="{e(tip_url)}" target="_blank">❤️ Thank {guide_name}</a>'
+        thank_btn = f'<a class="thank-btn" href="{e(tip_url)}" target="_blank" rel="noopener noreferrer">❤️ Thank {guide_name}</a>'
     else:
         thank_btn = f'<span class="thank-btn" style="opacity:0.5;cursor:default;">❤️ Thank {guide_name}</span>'
 

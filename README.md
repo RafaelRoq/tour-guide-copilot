@@ -104,19 +104,23 @@ or that the *bravas* around the corner are only worth it before 2 PM.
 insider criteria, the "order this, skip that, sit here" — and makes it
 available to the tourist long after the tour is over.
 
-### The "no fabrication" guarantee
+### Guarding against fabrication
 
-The AI doesn't invent. It structures. This is enforced at two levels:
+The prompts explicitly instruct the model to only use information present
+in the guide's document. If the guide hasn't mentioned breakfast spots,
+the output should say so rather than invent recommendations.
 
-- **In the prompts**: the model is explicitly instructed to only use
-  information present in the guide's document. If the guide hasn't
-  mentioned breakfast spots, the output won't include breakfast
-  recommendations — it will say there's no recommendation for that.
-- **In the code**: all model output is validated against a strict schema.
-  If the JSON is malformed or missing required fields, the pipeline
-  fails with a clear error instead of silently producing garbage. The
-  raw model response is always saved to `.raw_itinerary.json` and
-  `.raw_plans.json` for debugging.
+That said, this is a behavioural constraint on the model — not something
+the code can verify. A model can still hallucinate content that passes
+schema validation. Two layers reduce the risk:
+
+- **Prompts**: the model is told to omit rather than invent. The raw
+  responses are always saved to `.raw_itinerary.json` and `.raw_plans.json`
+  so you can inspect what the model actually produced.
+- **Schema validation**: all model output is validated against a strict
+  structure. If the JSON is malformed or missing required fields, the
+  pipeline fails with a clear error instead of silently producing garbage.
+  This catches structural problems — not semantic ones.
 
 > **Note**: The example guides (Manolo in Madrid, Lucía in Barcelona)
 > are fictional. All place names and recommendations in the examples
@@ -452,6 +456,31 @@ directory (`.raw_itinerary.json`, `.raw_plans.json`) for debugging.
 **Can I use a different model?**
 Set `OPENAI_MODEL` in `.env` to any model that supports
 `response_format: json_object`. The tool has been tested with `gpt-4o`.
+
+## What's next
+
+Directions being considered for future versions — contributions welcome:
+
+- **Conversational onboarding**: instead of writing a document, the guide
+  answers questions in a chat interface. The AI conducts the interview and
+  produces the same structured output the pipeline already knows how to
+  render. This lowers the barrier for guides who know their city but don't
+  write — which is most of them.
+- **Async tours**: the guide's captured knowledge powers a self-guided
+  tour experience — tourists follow the itinerary and query the guide's AI
+  without the guide being present. Requires RAG over the guide's corpus and
+  builds directly on the knowledge base created during onboarding.
+- **UI string translations**: the HTML template has hardcoded English labels
+  ("Your tour", "What do you need?"). Making these translatable would make
+  the tourist-facing page fully multilingual end to end.
+
+A live demo is available at
+[rafaelroq.github.io/tour-guide-copilot](https://rafaelroq.github.io/tour-guide-copilot/)
+— a pre-generated example (fictional guide Manolo, Madrid) so you can see
+the output without running the tool.
+
+If you're working on one of the above directions, open an issue first to
+coordinate.
 
 ## License
 

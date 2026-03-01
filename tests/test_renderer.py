@@ -127,7 +127,7 @@ def test_render_html_escapes_xss():
     config = _make_config(output_format="html")
     with tempfile.TemporaryDirectory() as tmpdir:
         created = render(xss_itinerary, SAMPLE_PLANS, config, tmpdir)
-        html_content = Path(created[0]).read_text()
+        html_content = Path(created[0]).read_text(encoding="utf-8")
 
         # Malicious content must be escaped, not rendered as HTML
         assert "<script>alert" not in html_content

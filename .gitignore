@@ -15,6 +15,9 @@ build/
 /output/
 .raw_*.json
 
+# Local notes (not for the repo)
+*.pdf
+
 # IDE
 .vscode/
 .idea/
