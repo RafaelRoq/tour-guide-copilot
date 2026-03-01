@@ -1,5 +1,7 @@
 # 🧭 Tour Guide Copilot
 
+**[→ Live demo](https://rafaelroq.github.io/tour-guide-copilot/)** · Open it on your phone.
+
 **Every AI app wants to replace the tour guide. This one works for them.**
 
 An open source tool that turns a tour guide's knowledge into a mobile-first
@@ -179,6 +181,33 @@ OUTPUT_FORMAT=html             # html, markdown, json, all
 
 `GUIDE_YEARS` and `GUIDE_TIP_URL` are optional. If omitted, the page
 still works — it just won't show those elements.
+
+### Using Ollama instead of OpenAI
+
+To run the pipeline with a local model (no API key, no cost):
+
+1. Install [Ollama](https://ollama.com) and pull a model:
+   ```bash
+   ollama pull llama3.1:8b
+   ```
+2. In your `.env`, replace the OpenAI settings with:
+   ```env
+   OPENAI_BASE_URL=http://localhost:11434/v1
+   OPENAI_MODEL=llama3.1:8b
+   # OPENAI_API_KEY is not needed
+   ```
+3. Run as usual:
+   ```bash
+   python -m copilot generate --input examples/input/madrid_manolo.md
+   ```
+
+**Model requirements**: the model must support JSON mode
+(`response_format: json_object`). `llama3.1:8b` and `qwen2.5:7b` work
+reliably. Smaller models (3B and below) may produce schema errors on
+complex guide documents.
+
+This mode is recommended for contributors iterating on prompts. For
+production use, GPT-4o produces noticeably better results.
 
 ### Writing a guide document
 

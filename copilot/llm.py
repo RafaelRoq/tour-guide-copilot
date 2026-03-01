@@ -62,7 +62,7 @@ def call_llm(
 
     logger.debug("Calling %s (model=%s, temperature=%.1f)", label, config.model, temp)
 
-    client = OpenAI(api_key=config.api_key)
+    client = OpenAI(api_key=config.api_key, base_url=config.base_url or None)
 
     response = client.chat.completions.create(
         model=config.model,

@@ -20,6 +20,7 @@ class Config:
     api_key: str = ""
     model: str = "gpt-4o"
     temperature: float = 0.3
+    base_url: str = ""
     guide_language: str = "en"
     guide_name: str = "Guide"
     guide_city: str = ""
@@ -60,17 +61,38 @@ def load_config(env_path: str | None = None) -> Config:
         root = Path(__file__).parent.parent
         load_dotenv(root / ".env")
 
+    base_url = os.getenv("OPENAI_BASE_URL", "")
     api_key = os.getenv("OPENAI_API_KEY", "")
-    if not api_key or api_key == "sk-...":
+
+    is_local = bool(base_url) and (
+        "localhost" in base_url or "127.0.0.1" in base_url
+    )
+
+    if not is_local and (not api_key or api_key == "sk-..."):
         raise ConfigError(
             "OPENAI_API_KEY is not set.\n"
-            "Copy .env.example to .env and add your API key."
+            "Copy .env.example to .env and add your API key.\n"
+            "To use a local model via Ollama, set OPENAI_BASE_URL=http://localhost:11434/v1 instead."
         )
+
+    # Warn if both are set — local URL takes precedence
+    if is_local and api_key and api_key != "sk-...":
+        import warnings
+        warnings.warn(
+            "Both OPENAI_BASE_URL (local) and OPENAI_API_KEY are set. "
+            "Using the local endpoint — OPENAI_API_KEY will be ignored.",
+            stacklevel=2,
+        )
+
+    # Ollama requires a non-empty api_key value; any string works
+    if is_local and not api_key:
+        api_key = "ollama"
 
     return Config(
         api_key=api_key,
         model=os.getenv("OPENAI_MODEL", "gpt-4o"),
         temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.3")),
+        base_url=base_url,
         guide_language=os.getenv("GUIDE_LANGUAGE", "en"),
         guide_name=os.getenv("GUIDE_NAME", "Guide"),
         guide_city=os.getenv("GUIDE_CITY", ""),
