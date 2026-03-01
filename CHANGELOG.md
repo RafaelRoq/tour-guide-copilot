@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.3.0 — Ollama support, CI, and quality improvements
+
+### Added
+- Ollama support via `OPENAI_BASE_URL`: run the pipeline locally with
+  no API key required. Tested with `llama3.1:8b`. Configured as Option B
+  in `.env.example`.
+- CI: GitHub Actions workflow runs the full test suite on push and PR
+  to main (`pytest`, Python 3.12).
+- Live demo page via GitHub Pages (`docs/index.html` — Manolo/Madrid
+  example).
+
+### Changed
+- README: reframed "no fabrication guarantee" as "guarding against
+  fabrication" — honest about what schema validation can and cannot catch.
+- README: added "What's next" section (conversational onboarding, async
+  tours, i18n) and live demo link at the top of the file.
+- README: added "Using Ollama" section under Configuration.
+- `cli.py`: reconfigure stdout/stderr to UTF-8 at startup — fixes emoji
+  crash on Windows with cp1252 default encoding.
+- `tests/test_renderer.py`: explicit `encoding="utf-8"` when reading
+  generated HTML — fixes test failure on Windows.
+- `pyproject.toml`: added `[tool.pytest.ini_options]` with `pythonpath`
+  so pytest can import the `copilot` package without installing it.
+
+### Security
+- Added `rel="noopener noreferrer"` to all `target="_blank"` links in
+  `templates/site/index.html` and `renderer.py` fallback.
+
 ## 0.2.0 — Reliability and structure
 
 ### Added

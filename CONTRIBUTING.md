@@ -48,6 +48,31 @@ Optional features like RAG, conversational chat, TTS, or payment
 integration go in an `extensions/` directory with their own README.
 They should never modify or depend on changes to the core modules.
 
+## Local setup
+
+```bash
+git clone https://github.com/RafaelRoq/tour-guide-copilot.git
+cd tour-guide-copilot
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+You can run the pipeline with **OpenAI** (set `OPENAI_API_KEY` in `.env`)
+or with a **local model via Ollama** (no API key needed — useful for
+iterating on prompts without cost):
+
+```bash
+# Install Ollama from https://ollama.com, then:
+ollama pull llama3.1:8b
+# In .env: set OPENAI_BASE_URL=http://localhost:11434/v1 and OPENAI_MODEL=llama3.1:8b
+```
+
+Run the tests:
+
+```bash
+python -m pytest tests/ -v
+```
+
 ## How to submit
 
 1. Fork the repo.

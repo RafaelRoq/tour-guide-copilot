@@ -12,6 +12,12 @@ from .generator import generate
 
 def main():
     """Entry point for the CLI."""
+    # Ensure UTF-8 output on Windows so emoji in print statements don't crash
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
     parser = argparse.ArgumentParser(
         prog="copilot",
         description="Tour Guide Copilot — Turn a guide's knowledge into itineraries and plans.",
