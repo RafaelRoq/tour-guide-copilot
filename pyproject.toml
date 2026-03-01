@@ -14,3 +14,6 @@ dependencies = [
 
 [project.scripts]
 copilot = "copilot.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
