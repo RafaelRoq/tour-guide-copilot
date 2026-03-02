@@ -1,0 +1,8 @@
+# Normalize line endings to LF in the repository.
+# Windows checkouts will still get CRLF if core.autocrlf=true (the default).
+* text=auto eol=lf
+
+# Explicitly binary — never touch line endings
+*.png binary
+*.jpg binary
+*.pdf binary
