@@ -125,7 +125,7 @@ class TestValidatePlans:
             "plans": [
                 {
                     "situation": "Where to eat",
-                    "recommendations": [{"name": "La Taberna"}],
+                    "recommendations": [{"name": "La Taberna", "description": "A solid local spot."}],
                 }
             ],
             "warnings": ["Watch your pockets"],
@@ -165,9 +165,10 @@ class TestValidatePlans:
                     "recommendations": [
                         {
                             "name": "Place",
+                            "description": "A place the guide loves.",
                             "what_to_order": "The rice",
                             "vibe": "Cozy",
-                            # no description, what_to_avoid, price_range
+                            # no what_to_avoid, price_range
                         }
                     ],
                 }
@@ -176,6 +177,6 @@ class TestValidatePlans:
         result = validate_plans(data)
         rec = result["plans"][0]["recommendations"][0]
         assert rec["what_to_order"] == "The rice"
-        assert rec["description"] is None
+        assert rec["description"] == "A place the guide loves."
         assert rec["what_to_avoid"] is None
         assert rec["price_range"] is None
