@@ -170,6 +170,7 @@ array (never invented content).
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `name` | string | yes | Name or description of the place/activity |
+| `description` | string | yes | The guide's personal take — why this place, what's the story. 1-2 sentences in the guide's voice. Never null. |
 | `what_to_order` | string | no | What to get there — the guide's specific pick |
 | `what_to_avoid` | string | no | What to skip or watch out for |
 | `price_range` | string | no | Free-text indicator: `"Free"`, `"€"`, `"€€"`, `"€€€"` |
