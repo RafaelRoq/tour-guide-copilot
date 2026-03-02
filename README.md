@@ -1,6 +1,6 @@
 # 🧭 Tour Guide Copilot
 
-**[→ Live demo](https://rafaelroq.github.io/tour-guide-copilot/)** · Open it on your phone.
+**[→ Live demo](https://rafaelroq.github.io/tour-guide-copilot/)** — AI-generated output from a guide's text document. Open it on your phone.
 
 **Every AI app wants to replace the tour guide. This one works for them.**
 
@@ -126,9 +126,8 @@ schema validation. Two layers reduce the risk:
   pipeline fails with a clear error instead of silently producing garbage.
   This catches structural problems — not semantic ones.
 
-> **Note**: The example guides (Manolo in Madrid, Lucía in Barcelona)
-> are fictional. All place names and recommendations in the examples
-> are illustrative.
+> **Note**: The example guide (Manolo in Madrid) is fictional. All
+> place names and recommendations in the examples are illustrative.
 
 ## Quickstart
 
@@ -519,11 +518,6 @@ Directions being considered for future versions — contributions welcome:
 - **UI string translations**: the HTML template has hardcoded English labels
   ("Your tour", "What do you need?"). Making these translatable would make
   the tourist-facing page fully multilingual end to end.
-
-A live demo is available at
-[rafaelroq.github.io/tour-guide-copilot](https://rafaelroq.github.io/tour-guide-copilot/)
-— a pre-generated example (fictional guide Manolo, Madrid) so you can see
-the output without running the tool.
 
 If you're working on one of the above directions, open an issue first to
 coordinate.
