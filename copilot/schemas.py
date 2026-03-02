@@ -205,12 +205,14 @@ def validate_plans(data: dict, raw_response: str = "") -> dict:
         for j, rec in enumerate(plan["recommendations"]):
             rprefix = f"{prefix}.recommendations[{j}]"
             _check_type(rec, dict, rprefix, raw)
-            _check_required(rec, ["name", "description"], rprefix, raw)
+            _check_required(rec, ["name"], rprefix, raw)
             _check_type(rec["name"], str, f"{rprefix}.name", raw)
-            _check_type(rec["description"], str, f"{rprefix}.description", raw)
 
             # Optional string fields — normalize
-            for opt_field in ("what_to_order", "what_to_avoid", "vibe", "price_range"):
+            # Note: description is required by the prompt contract ("never null"),
+            # but smaller models may omit it. We normalise to None rather than
+            # failing so that llama3.1:8b and similar models remain usable.
+            for opt_field in ("description", "what_to_order", "what_to_avoid", "vibe", "price_range"):
                 val = rec.get(opt_field)
                 if val is not None and not isinstance(val, str):
                     rec[opt_field] = str(val)
